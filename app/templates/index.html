@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shorten</title>
+</head>
+<body>
+	<form method="post" action="">
+		{{ form.csrf }}
+		{{ form.hidden_tag() }}
+		<p>{{ form.url(size=60) }}</p>
+		{{form.submit()}}	
+	</form>
+	
+</body>
+</html>
