@@ -1,4 +1,8 @@
+import string
+import random
+
 from app import db
+
 
 class Link(db.Model):
 	id = db.Column(db.Integer,primary_key=True)
@@ -10,10 +14,29 @@ class Link(db.Model):
 
 
 
-def check_if_exist(url):
+def check_if_exist(url, generated = False):
 	query = db.session.query(Link)
-	result = query.filter(Link.url_user ==  url).one_or_none()
+
+	if generated:
+		col = Link.url_generated
+	else:
+		col = Link.url_user
+
+	result = query.filter( col ==  url).one_or_none()
 	return result
 
 def create_new_record(url):
-	pass
+	new_url = generate_new_url()
+	new_record = Link(url_user = url, url_generated=new_url)
+	db.session.add(new_record)
+	db.session.commit()
+
+	return new_url
+
+
+def generate_new_url():
+	chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
+	result = ''.join([random.choice(chars) for i in range(8)])
+	if check_if_exist(result) != None:
+		result = generate_new_url()
+	return result
