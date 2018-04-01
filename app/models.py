@@ -4,6 +4,9 @@ import random
 from app import db
 
 
+chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
+
+
 class Link(db.Model):
 	id = db.Column(db.Integer,primary_key=True)
 	url_user = db.Column(db.String(120), index=True, unique=True)
@@ -35,7 +38,6 @@ def create_new_record(url):
 
 
 def generate_new_url():
-	chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
 	result = ''.join([random.choice(chars) for i in range(8)])
 	if check_if_exist(result) != None:
 		result = generate_new_url()

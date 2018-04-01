@@ -8,6 +8,7 @@
 		{{ form.csrf }}
 		{{ form.hidden_tag() }}
 		<p>{{ form.url(size=40) }} {{form.submit()}}</p>
+		<p style="color: red;">{{error}}</p>
 			
 	</form>
 	
