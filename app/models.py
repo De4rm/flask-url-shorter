@@ -7,3 +7,13 @@ class Link(db.Model):
 
 	def _repr__(self):
 		return "Link, {}".format(self.url_user)
+
+
+
+def check_if_exist(url):
+	query = db.session.query(Link)
+	result = query.filter(Link.url_user ==  url).one_or_none()
+	return result
+
+def create_new_record(url):
+	pass
